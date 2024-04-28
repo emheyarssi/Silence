@@ -54,11 +54,11 @@ class CallScreeningService : CallScreeningService() {
         } else if (callDetails.callDirection != Call.Details.DIRECTION_INCOMING) {
             respondAllow(callDetails)
             return
-        } else if (
-            prefs.isBlockEnabled ||
-            checkBlockRegex(callDetails)
-        ) {
+        } else if (prefs.isBlockEnabled) {
             respondNotAllow(callDetails)
+            return
+        } else if (checkBlockRegex(callDetails)) {
+            respondAllow(callDetails)
             return
         } else if (
             (prefs.isStirChecked && isStirVerified(callDetails)) ||
